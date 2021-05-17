@@ -46,7 +46,18 @@ app.get("/completed", (res, req) => {
       res.sen(err);
     });
 });
-app.put("/update/todo", (req, res) => {});
+app.put("/update/todo", (req, res) => {
+  const filter = req.body;
+  const update = req.body;
+  todoModel
+    .findOneAndUpdate({ filter, update })
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 app.delete("/delete/todo", (req, res) => {});
 
 const port = 3000;

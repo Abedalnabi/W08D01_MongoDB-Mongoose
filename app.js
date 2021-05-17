@@ -29,13 +29,23 @@ app.post("/create/todo", (req, res) => {
   todo
     .save()
     .then((result) => {
-      res.json(result);
+      res.send(result);
     })
     .catch((err) => {
       res.send(err);
     });
 });
 
+app.get("/completed", (res, req) => {
+  todoModel
+    .find({ isCompleted: true })
+    .then((resl) => {
+      res.send(resl);
+    })
+    .catch((err) => {
+      res.sen(err);
+    });
+});
 app.put("/update/todo", (req, res) => {});
 app.delete("/delete/todo", (req, res) => {});
 

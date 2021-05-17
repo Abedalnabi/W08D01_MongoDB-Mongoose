@@ -46,13 +46,18 @@ app.get("/completed", (res, req) => {
       res.sen(err);
     });
 });
-app.put("/update/todo", (req, res) => {
-  const filter = req.body;
-  const update = req.body;
+app.put("/update/todo/:task", (req, res) => {
+  const task = req.params.task;
+  const { task, description, deadline, isCompleted, priority } = req.body;
+
   todoModel
-    .findOneAndUpdate({ filter, update })
+    .findOneAndUpdate(
+      { task: task },
+      { task, description, deadline, isCompleted, priority }
+    )
     .then((result) => {
-      res.send(result);
+      res.status(200);
+      res.json(result);
     })
     .catch((err) => {
       res.send(err);

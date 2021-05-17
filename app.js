@@ -4,7 +4,17 @@ const db = require("./db");
 const app = express();
 app.use(express.json());
 
-app.get("/todos", (req, res) => {});
+app.get("/todos", (req, res) => {
+  todoModel
+    .find({})
+    .then((resl) => {
+      res.json(resl);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 app.post("/create/todo", (req, res) => {
   const { task, description, deadline, isCompleted, priority } = req.body;
   //task = req.body.task

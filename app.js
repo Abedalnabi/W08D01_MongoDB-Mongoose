@@ -56,14 +56,23 @@ app.put("/update/todo/:task", (req, res) => {
       { task, description, deadline, isCompleted, priority }
     )
     .then((result) => {
-      res.status(200);
       res.json(result);
     })
     .catch((err) => {
       res.send(err);
     });
 });
-app.delete("/delete/todo", (req, res) => {});
+app.delete("/delete/todo/", (req, res) => {
+  const task = req.query.task;
+  todoModel
+    .findOneAndDelete({ task: task })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 const port = 3000;
 app.listen(port, () => {

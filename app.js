@@ -47,13 +47,14 @@ app.get("/completed", (res, req) => {
     });
 });
 app.put("/update/todo/:task", (req, res) => {
-  const task = req.params.task;
+  const task1 = req.params.task;
   const { task, description, deadline, isCompleted, priority } = req.body;
 
   todoModel
     .findOneAndUpdate(
-      { task: task },
-      { task, description, deadline, isCompleted, priority }
+      { task: task1 },
+      { task, description, deadline, isCompleted, priority },
+      { new: true }
     )
     .then((result) => {
       res.json(result);
